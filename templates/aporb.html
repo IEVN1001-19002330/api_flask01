@@ -1,16 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Document</title>
-</head>
-<body>
-    
-
-    <h1>A POR B</h1>
 
 
-</body>
-</html>
+{%extends "layout.html"%}
+{%block contenido %}
+
+<h1>A POR B</h1>
+
+<form action="/resultado" method="post">
+
+
+    <div class="mb-3">
+        <label for="A" class="form-label">A: </label>
+        <input type="text" class="form-control" id="a" name="a" placeholder="A">
+    </div>
+    <div class="mb-3">
+        <label for="B" class="form-label">B: </label>
+        <input type="text" class="form-control" id="b" name="b" placeholder="B">
+    </div>
+    <hr>
+    <button type="submit" class="btn btn-primary"> Calcular </button>
+
+
+
+</form>
+
+{% endblock %}

@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+import math
 
 app = Flask(__name__)
 
@@ -18,12 +19,24 @@ def index():
 def aporb():
     return render_template('aporb.html')
 
+@app.route("/resultado", methods=['POST'])
+def resultado():
+    n1=request.form.get("a")
+    n2=request.form.get("b")
+    return "La multiplicación de {} y {} es: {} ".format(n1,n2,int(n1)*int(n2))
+
 
 @app.route('/distancia')
 def distancia():
     return render_template('distancia.html')
 
-
+@app.route('/distancia-result', methods=['POST'])
+def result():
+    numeroX1= request.form.get("X1")
+    numeroX2= request.form.get("X2")
+    numeroY1= request.form.get("Y1")
+    numeroY2= request.form.get("Y2")
+    return "El resultado es: {}".format( math.sqrt(int(numeroX2) - int(numeroX1)* int(numeroX2) - int(numeroX1) + int(numeroY2) - int(numeroY1)* int(numeroY2) - int(numeroY1)))
 
 @app.route("/hola")
 def func():

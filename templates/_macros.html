@@ -1,0 +1,13 @@
+{% macro campo(name, label, tipo='number', opciones=[]) %}
+<div class="mb-3">
+    <label class="form-label">{{ label }}:</label><br>
+
+    {% if tipo == 'radio' %}
+        {% for opcion in opciones %}
+            <input type="radio" name="{{ name }}" value="{{ opcion }}" required> {{ opcion|capitalize }}<br>
+        {% endfor %}
+    {% else %}
+        <input class="form-control" type="{{ tipo }}" name="{{ name }}">
+    {% endif %}
+</div>
+{% endmacro %}

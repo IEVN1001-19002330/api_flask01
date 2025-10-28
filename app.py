@@ -26,17 +26,45 @@ def resultado():
     return "La multiplicación de {} y {} es: {} ".format(n1,n2,int(n1)*int(n2))
 
 
-@app.route('/distancia')
+@app.route('/distancia', methods=['GET', 'POST'])
 def distancia():
-    return render_template('distancia.html')
+    resultado = None
+    if request.method == 'POST':
+        try:
+            x1 = float(request.form.get("X1"))
+            x2 = float(request.form.get("X2"))
+            y1 = float(request.form.get("Y1"))
+            y2 = float(request.form.get("Y2"))
 
-@app.route('/distancia-result', methods=['POST'])
-def result():
-    numeroX1= request.form.get("X1")
-    numeroX2= request.form.get("X2")
-    numeroY1= request.form.get("Y1")
-    numeroY2= request.form.get("Y2")
-    return "El resultado es: {}".format( math.sqrt(int(numeroX2) - int(numeroX1)* int(numeroX2) - int(numeroX1) + int(numeroY2) - int(numeroY1)* int(numeroY2) - int(numeroY1)))
+            resultado = round(math.sqrt((x2 - x1)**2 + (y2 - y1)**2), 2)
+        except (ValueError, TypeError):
+            resultado = "Error: verifica tus valores."
+
+    return render_template('distancia.html', resultado=resultado)
+
+
+@app.route('/figuras', methods=['GET', 'POST'])
+def figuras():
+    area = None
+    figura = None
+
+    if request.method == 'POST':
+        figura = request.form.get('figura')
+        valor1 = request.form.get('valor1', type=float)
+        valor2 = request.form.get('valor2', type=float)
+
+        if figura == 'rectangulo' and valor1 and valor2:
+            area = valor1 * valor2
+        elif figura == 'triangulo' and valor1 and valor2:
+            area = (valor1 * valor2) / 2
+        elif figura == 'circulo' and valor1:
+            area = math.pi * (valor1 ** 2)
+        elif figura == 'pentagono' and valor1 and valor2:
+            perimetro = 5 * valor1
+            area = (perimetro * valor2) / 2
+
+    return render_template('figuras.html', area=area, figura=figura)
+
 
 @app.route("/hola")
 def func():

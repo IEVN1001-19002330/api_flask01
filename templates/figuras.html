@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block contenido %}
+{% import "_macros.html" as macros %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Cálculo de Áreas</h1>
+
+    <form action="/figuras" method="post" class="border p-4 bg-light rounded">
+
+        {{ macros.campo('figura', 'Selecciona una figura', 'radio', ['rectangulo','triangulo','circulo','pentagono']) }}
+        <br>
+        {{ macros.campo('valor1','Valor 1 (base/lado/radio)') }}
+        {{ macros.campo('valor2','Valor 2 (altura/apotema, dejar vacío si es círculo)') }}
+
+        <button type="submit" class="btn btn-primary mt-2">Calcular área</button>
+    </form>
+
+    {% if area and figura %}
+    <div class="alert alert-success mt-4 text-center">
+        <h4>El área del {{ figura }} es: {{ area }}</h4>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+

@@ -1,42 +1,30 @@
 {% extends "layout.html" %}
 {% block contenido %}
 
-<div class="d-flex justify-content-center align-items-center">
-  <div class="card shadow" style="width: 400px;">
+{% import "_macros.html" as macros %}
 
-    <h2 class="text-center fw-bold mb-4">Calculadora de Distancia entre dos puntos</h2>
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="card shadow p-4 text-center" style="width: 400px;">
 
-    <form action="/distancia" class="justify-content-center" method="post">
+    <h2 class="fw-bold mb-4">Calculadora de Distancia entre dos puntos</h2>
 
-      <div class="mb-3">
-        <label for="X1" class="form-label">X1:</label>
-        <input type="number" name="X1" id="X1" step="any" class="form-control" placeholder="Ingresa X1">
-      </div>
+    <form action="/distancia" method="post" novalidate>
 
-      <div class="mb-3">
-        <label for="X2" class="form-label">X2:</label>
-        <input type="number" name="X2" id="X2" step="any" class="form-control" placeholder="Ingresa X2">
-      </div>
-
-      <div class="mb-3">
-        <label for="Y1" class="form-label">Y1:</label>
-        <input type="number" name="Y1" id="Y1" step="any" class="form-control" placeholder="Ingresa Y1">
-      </div>
-
-      <div class="mb-4">
-        <label for="Y2" class="form-label">Y2:</label>
-        <input type="number" name="Y2" id="Y2" step="any" class="form-control" placeholder="Ingresa Y2">
+      <div class="text-start">
+        {{ macros.render_field(form.x1) }}
+        {{ macros.render_field(form.x2) }}
+        {{ macros.render_field(form.y1) }}
+        {{ macros.render_field(form.y2) }}
       </div>
 
       <div class="d-grid">
-        <button type="submit" class="btn btn-warning fw-bold">CALCULAR</button>
+        <button type="submit" class="btn btn-warning fw-bold mt-2">CALCULAR</button>
       </div>
 
       {% if resultado %}
       <div class="mt-4 text-center">
         <hr>
         <p class="fw-semibold mb-1">La distancia entre los dos puntos es:</p>
-        
         <h3 class="text-success fw-bold">{{ resultado }}</h3>
       </div>
       {% endif %}
